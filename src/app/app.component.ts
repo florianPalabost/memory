@@ -2,17 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import * as _ from 'underscore';
 
-// todo move it
-
-_.mixin({
-  merge : function() {
-    return _.reduce(arguments, function(list, obj) {
-      return _.extend(list, obj);
-    }, {});
-  }
-});
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,49 +11,9 @@ export class AppComponent implements OnInit {
   title = 'memory';
   choiceNbCardsForm: any;
   numberOfCardsChose: any;
-  // cards = [{
-  //   'value': 1,
-  //   'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 2,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 3,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 1,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 2,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 3,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 4,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 5,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 4,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   {
-  //     'value': 5,
-  //     'img' : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'
-  //   },
-  //   ];
   cards = [];
   nbClick = 0;
+  nbPairs = 0;
   seen = [];
 
   constructor(private fb: FormBuilder) {
@@ -80,18 +29,19 @@ export class AppComponent implements OnInit {
     this.nbClick = 0;
     this.cards = [];
     this.numberOfCardsChose = form.numberCards;
+    this.nbPairs = form.numberCards / 2;
 
     let i = 0;
     while (i < this.numberOfCardsChose / 2) {
       const newCard = {
-        'id': _.random(0, 100),
+        'id': _.random(0, 100000),
         'value': i,
         'found': false
       };
       this.cards.push(newCard);
 
       const newCard1 = {
-        'id': _.random(0, 100),
+        'id': _.random(0, 100000),
         'value': i,
         'found': false
       };
@@ -105,32 +55,41 @@ export class AppComponent implements OnInit {
   }
 
   clickCard(card) {
+
+    // rotate img
+    const domCard = document.querySelector('#card_' + card.id);
+    domCard.setAttribute('style', ' transform: rotateY(180deg);' );
+
     console.debug(`card clicked : ${card.value}`);
     // TODO check card is not the same that click previously
     switch (this.seen.length) {
       case 2:
         // not the same cards
         this.seen = [];
+        reverseCard(domCard);
         break;
       case 1:
         // cmp card clicked & card seen previously
         if (this.seen[0].value === card.value && this.seen[0].id !== card.id) {
           // same cards so update found of the 2 cards
-          const cardsToUpdate = _.where(this.cards, [card, this.seen[0]]);
-          _.each(cardsToUpdate, (carte) => {
-            carte.found = true;
+          _.each(this.cards, (carte) => {
+            if (carte.value === this.seen[0].value) {
+              carte.found = true;
+              console.log(carte);
+            }
           });
-          this.cards = _.merge(this.cards, cardsToUpdate);
-          console.log('oui');
+          this.nbPairs--;
           console.log(this.cards);
           // empty seen cards array
           this.seen = [];
         } else {
+          reverseCard(domCard);
           this.seen.push(card);
         }
         break;
       default:
         this.seen.push(card);
+        reverseCard(domCard);
         break;
 
     }
@@ -139,4 +98,12 @@ export class AppComponent implements OnInit {
   }
 
 
+
+}
+
+function reverseCard(domCard) {
+  setTimeout(() => {
+    domCard.setAttribute('style', ' transform: rotateY(0deg);' );
+
+  }, 1000);
 }

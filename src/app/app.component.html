@@ -5,7 +5,9 @@
         <h1>
           Welcome to {{ title }}!
         </h1>
-        <span *ngIf="nbClick > 0"> {{nbClick}} clicks !</span>
+        <div class="alert-info"><p><span *ngIf="nbClick > 0"> {{nbClick}} clicks !</span></p>
+          <p>{{nbPairs}} more pairs to discover !</p>
+        </div>
       </div>
     </div>
 
@@ -31,9 +33,9 @@
   <div class="row">
     <div *ngFor="let card of cards" class="flip-card col-lg-2">
       <a *ngIf="!card.found === true" class="link-card" href="#" (click)="clickCard(card)">
-        <div class="flip-card-inner">
+        <div class="flip-card-inner" id="card_{{card.id}}">
           <div class="flip-card-front">
-            <img class="img-fluid" src="{{card.img}}" alt="" style="width:300px">
+            <img class="img-fluid" src="https://www.super-blagues.fr/assets/images/profil/profil_defaut.png" alt="" style="width:300px">
           </div>
           <div class="flip-card-back">
             <h1>{{card.value}}</h1>
@@ -44,11 +46,11 @@
         </div>
       </a>
 
-      <a *ngIf="card.found === true" class="link-card" href="#">
+      <span *ngIf="card.found === true" class="link-card">
             <img class="img-fluid" src="{{card.img}}" alt="" style="width:300px">
             <h1>{{card.value}}</h1>
             <h1>{{card.found}}</h1>
-      </a>
+      </span>
 
     </div>
 
