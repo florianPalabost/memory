@@ -38,7 +38,6 @@ export class AppComponent {
         'value': i % 12 + 1,
         'type': type
       }).length > 0 ) {
-        console.log('find ');
         newCard = createCard(i, type);
       }
       this.cards.push(newCard);
@@ -46,7 +45,6 @@ export class AppComponent {
       this.cards.push(newCard1);
       i++;
     }
-    console.log(this.cards);
     // random order of the cards
     this.cards = _.shuffle(this.cards);
 
@@ -74,11 +72,9 @@ export class AppComponent {
           _.each(this.cards, (carte) => {
             if (carte.value === this.seen[0].value && carte.type === this.seen[0].type) {
               carte.found = true;
-              console.log(carte);
             }
           });
           this.nbPairs--;
-          console.log(this.cards);
           // empty seen cards array
           this.seen = [];
         } else {
