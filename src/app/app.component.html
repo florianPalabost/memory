@@ -35,21 +35,23 @@
       <a *ngIf="!card.found === true" class="link-card" href="#" (click)="clickCard(card)">
         <div class="flip-card-inner" id="card_{{card.id}}">
           <div class="flip-card-front">
-            <img class="img-fluid" src="https://www.super-blagues.fr/assets/images/profil/profil_defaut.png" alt="" style="width:300px">
+            <img class="img-fluid" src="assets/img/blue_back.png" alt="" style="height: 100%;width: auto; background-color: white">
           </div>
           <div class="flip-card-back">
-            <h1>{{card.value}}</h1>
-            <h1>{{card.found}}</h1>
-            <h1>{{card.id}}</h1>
-
+            <img class="img-fluid" src="assets/img/{{card.value}}{{card.type}}.png" alt="card" style="height: 100%;width: auto; background-color: white">
+<!--            <h1>{{card.value}}</h1>-->
+<!--            <h1>{{card.found}}</h1>-->
+<!--            <h1>{{card.id}}</h1>-->
           </div>
         </div>
       </a>
 
       <span *ngIf="card.found === true" class="link-card">
-            <img class="img-fluid" src="{{card.img}}" alt="" style="width:300px">
-            <h1>{{card.value}}</h1>
-            <h1>{{card.found}}</h1>
+           <img class="img-fluid" src="assets/img/{{card.value}}{{card.type}}.png" alt="card" style="height: 100%;width: auto; background-color: white">
+<!--            <img class="img-fluid" src="{{card.img}}" alt="" style="width:300px">-->
+<!--            <h1>{{card.value}}</h1>-->
+<!--            <h1>{{card.found}}</h1>-->
+
       </span>
 
     </div>

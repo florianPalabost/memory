@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   nbClick = 0;
   nbPairs = 0;
   seen = [];
+  typeCards = ['C', 'D', 'H', 'S'];
 
   constructor(private fb: FormBuilder) {
     this.choiceNbCardsForm = this.fb.group({
@@ -31,19 +32,22 @@ export class AppComponent implements OnInit {
     this.numberOfCardsChose = form.numberCards;
     this.nbPairs = form.numberCards / 2;
 
-    let i = 0;
-    while (i < this.numberOfCardsChose / 2) {
+
+    let i = 1;
+    while (i <= this.numberOfCardsChose / 2) {
       const newCard = {
         'id': _.random(0, 100000),
         'value': i,
-        'found': false
+        'found': false,
+        'type': this.typeCards[Math.floor(Math.random() * this.typeCards.length)]
       };
       this.cards.push(newCard);
 
       const newCard1 = {
         'id': _.random(0, 100000),
         'value': i,
-        'found': false
+        'found': false,
+        'type': this.typeCards[Math.floor(Math.random() * this.typeCards.length)]
       };
       this.cards.push(newCard1);
       i++;
@@ -86,6 +90,10 @@ export class AppComponent implements OnInit {
           reverseCard(domCard);
           this.seen.push(card);
         }
+        break;
+      case 0:
+        this.seen.push(card);
+        reverseCard(domCard);
         break;
       default:
         this.seen.push(card);
