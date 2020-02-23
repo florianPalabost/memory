@@ -41,3 +41,15 @@
   color: white;
   transform: rotateY(180deg);
 }
+
+/*@media (min-width: 576px) {*/
+/*  :host ::ng-deep .carte {*/
+/*    height: 75%;*/
+/*  }*/
+/*}*/
+/*@media (min-width: 992px) {*/
+/*  :host ::ng-deep .carte {*/
+/*    height: 100%;*/
+/*  }*/
+/*}*/
+
