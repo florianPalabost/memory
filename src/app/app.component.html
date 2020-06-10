@@ -1,5 +1,5 @@
 <div class="container">
-  <div style="text-align:center" class="">
+  <div style="text-align:center">
     <div class="row">
       <div class="col-12">
         <h1>
@@ -35,7 +35,7 @@
       <span *ngIf="!card.found === true" class="link-card" (click)="clickCard(card)">
         <div class="flip-card-inner" id="card_{{card.id}}">
           <div class="flip-card-front">
-            <img class="img-fluid carte" src="assets/img/blue_back.png" alt="" style="height: 75%;width: auto; background-color: white">
+            <img class="img-fluid carte" src="assets/img/blue_back.png" alt="card" style="height: 75%;width: auto; background-color: white">
           </div>
           <div class="flip-card-back">
             <img class="img-fluid" src="assets/img/{{card.value}}{{card.type}}.png" alt="card" style="height: 75%;width: auto; background-color: white">
@@ -44,7 +44,8 @@
       </span>
 
       <span *ngIf="card.found === true" class="link-card">
-           <img class="img-fluid" src="assets/img/{{card.value}}{{card.type}}.png" alt="card" style="height: 75%;width: auto; background-color: white">
+           <img class="img-fluid" src="assets/img/{{card.value}}{{card.type}}.png" alt="card"
+                style="height: 75%;width: auto; background-color: white">
       </span>
 
     </div>

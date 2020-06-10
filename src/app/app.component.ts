@@ -32,7 +32,6 @@ export class AppComponent {
     while (i <= this.numberOfCardsChosen / 2) {
       const type = this.typeCards[Math.floor(Math.random() * this.typeCards.length)];
       let newCard = createCard(i, type);
-      // todo avoid to have the same cards create
 
       if (_.where(this.cards, {
         'value': i % 12 + 1,
@@ -82,21 +81,14 @@ export class AppComponent {
           this.seen.push(card);
         }
         break;
-      case 0:
-        this.seen.push(card);
-        reverseCard(domCard);
-        break;
       default:
         this.seen.push(card);
         reverseCard(domCard);
         break;
-
     }
 
     this.nbClick++;
   }
-
-
 
 }
 
@@ -107,7 +99,6 @@ export class AppComponent {
 function reverseCard(domCard) {
   setTimeout(() => {
     domCard.setAttribute('style', ' transform: rotateY(0deg);' );
-
   }, 1000);
 }
 
